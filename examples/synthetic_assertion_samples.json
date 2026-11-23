@@ -1,0 +1,98 @@
+{
+  "schema_version": "synthetic-assertion-suite-1.0",
+  "synthetic": true,
+  "warning": "全部段落与数值均为软件测试和教学用虚构内容，不是科研事实、正式案例答案或外部文献证据。",
+  "usage": "逐题将 source_passage 拆成可独立判断真假的断言，并为每条断言复制最小充分证据；expected_assertions 仅用于此合成题集的回归比对。",
+  "problems": [
+    {
+      "problem_id": "SYN-001",
+      "question": "拆分不同结局，同时保留共同条件与数值。",
+      "source_passage": "在虚拟细胞模型 C 中，化合物 X 处理 4 h 后，信号 S 从 2 增至 6 个任意单位，细胞活力 V 从 100 降至 80 个任意单位。",
+      "expected_assertions": [
+        {"sample_id": "SYN-A001", "text": "在虚拟细胞模型 C 中，化合物 X 处理 4 h 后，信号 S 从 2 增至 6 个任意单位。", "relation_type": "quantitative_measurement", "epistemic_status": "reported", "teaching_point": "信号结局与细胞活力结局可以分别独立为假。"},
+        {"sample_id": "SYN-A002", "text": "在虚拟细胞模型 C 中，化合物 X 处理 4 h 后，细胞活力 V 从 100 降至 80 个任意单位。", "relation_type": "quantitative_measurement", "epistemic_status": "reported", "teaching_point": "保留时间、模型系统和单位。"}
+      ]
+    },
+    {
+      "problem_id": "SYN-002",
+      "question": "区分统计关联与作者提出的机制解释。",
+      "source_passage": "在合成队列 P 中，标志物 M 与结局 O 相关（虚构 RR=1.4，95% CI 1.1–1.8）；作者提出 M 可能促进 O。",
+      "expected_assertions": [
+        {"sample_id": "SYN-A003", "text": "在合成队列 P 中，标志物 M 与结局 O 相关（虚构 RR=1.4，95% CI 1.1–1.8）。", "relation_type": "association", "epistemic_status": "reported", "teaching_point": "RR 与区间属于同一关联断言。"},
+        {"sample_id": "SYN-A004", "text": "作者提出标志物 M 可能促进结局 O。", "relation_type": "mechanism", "epistemic_status": "reported", "teaching_point": "直接转述作者提出的解释；保留‘可能’，不改写为已证实因果。"}
+      ]
+    },
+    {
+      "problem_id": "SYN-003",
+      "question": "拆分不同随访时点，避免将其错误合并。",
+      "source_passage": "在虚拟试验 T 中，干预 I 相较对照在第 1 周使指标 Q 提高 5%，在第 4 周使指标 Q 提高 12%。",
+      "expected_assertions": [
+        {"sample_id": "SYN-A005", "text": "在虚拟试验 T 中，干预 I 相较对照在第 1 周使指标 Q 提高 5%。", "relation_type": "comparative_effect", "epistemic_status": "reported", "teaching_point": "第 1 周比较具有独立时间点。"},
+        {"sample_id": "SYN-A006", "text": "在虚拟试验 T 中，干预 I 相较对照在第 4 周使指标 Q 提高 12%。", "relation_type": "comparative_effect", "epistemic_status": "reported", "teaching_point": "第 4 周结果不得与第 1 周混为同一条件。"}
+      ]
+    },
+    {
+      "problem_id": "SYN-004",
+      "question": "区分既往研究陈述与当前材料的新结果。",
+      "source_passage": "一段虚构背景文字称既往合成研究观察到材料 Z 具有性质 H。本虚拟实验则在条件 C 下测得材料 Z 的性质 H 为 9 个任意单位。",
+      "expected_assertions": [
+        {"sample_id": "SYN-A007", "text": "虚构背景文字称既往合成研究观察到材料 Z 具有性质 H。", "relation_type": "characterization", "epistemic_status": "reported", "teaching_point": "来源归因指向既往研究，不冒充当前实验。"},
+        {"sample_id": "SYN-A008", "text": "本虚拟实验在条件 C 下测得材料 Z 的性质 H 为 9 个任意单位。", "relation_type": "quantitative_measurement", "epistemic_status": "reported", "teaching_point": "当前结果保留测量条件和单位。"}
+      ]
+    },
+    {
+      "problem_id": "SYN-005",
+      "question": "处理未检出差异与另一结局的显著变化，避免把前者写成等效。",
+      "source_passage": "在虚构比较中，处理 A 与处理 B 的结局 O1 未检出差异（假设 p=0.40），但处理 A 的结局 O2 比处理 B 高 3 个任意单位。",
+      "expected_assertions": [
+        {"sample_id": "SYN-A009", "text": "在该虚构比较及所用检验下，处理 A 与处理 B 的结局 O1 未检出差异（假设 p=0.40）。", "relation_type": "absence_of_detected_effect", "epistemic_status": "reported", "teaching_point": "不写为两种处理等效或完全无差异。"},
+        {"sample_id": "SYN-A010", "text": "在该虚构比较中，处理 A 的结局 O2 比处理 B 高 3 个任意单位。", "relation_type": "comparative_effect", "epistemic_status": "reported", "teaching_point": "第二个结局必须成为独立断言。"}
+      ]
+    },
+    {
+      "problem_id": "SYN-006",
+      "question": "把机制链拆为可分别验证的关系。",
+      "source_passage": "在虚构通路模型中，节点 A 激活节点 B，且节点 B 抑制节点 C。",
+      "expected_assertions": [
+        {"sample_id": "SYN-A011", "text": "在虚构通路模型中，节点 A 激活节点 B。", "relation_type": "mechanism", "epistemic_status": "reported", "teaching_point": "A–B 与 B–C 是方向不同的两条关系。"},
+        {"sample_id": "SYN-A012", "text": "在虚构通路模型中，节点 B 抑制节点 C。", "relation_type": "mechanism", "epistemic_status": "reported", "teaching_point": "保留抑制方向，不推断为 A 直接抑制 C。"}
+      ]
+    },
+    {
+      "problem_id": "SYN-007",
+      "question": "按剂量拆分同一视觉趋势的两个比较，并保留图号。",
+      "source_passage": "虚构图 1 中，在剂量 D1 与 D2 下，系列 A 的纵轴数值均高于系列 B。",
+      "expected_assertions": [
+        {"sample_id": "SYN-A013", "text": "虚构图 1 显示，在剂量 D1 下系列 A 的纵轴数值高于系列 B。", "relation_type": "comparative_effect", "epistemic_status": "reported", "teaching_point": "图像证据需页码、图号、区域与视觉复核。"},
+        {"sample_id": "SYN-A014", "text": "虚构图 1 显示，在剂量 D2 下系列 A 的纵轴数值高于系列 B。", "relation_type": "comparative_effect", "epistemic_status": "reported", "teaching_point": "不同剂量条件分别成断言，不虚构未读出的精确值。"}
+      ]
+    },
+    {
+      "problem_id": "SYN-008",
+      "question": "区分直接测量结果与其适用限制。",
+      "source_passage": "虚拟方法 R 在样本 S 中检测到标志物 M；该虚构方法目前仅在样本 S 中进行了评估。",
+      "expected_assertions": [
+        {"sample_id": "SYN-A015", "text": "虚拟方法 R 在样本 S 中检测到标志物 M。", "relation_type": "procedural", "epistemic_status": "reported", "teaching_point": "检测结论限定于样本 S。"},
+        {"sample_id": "SYN-A016", "text": "虚拟方法 R 目前仅在样本 S 中进行了评估。", "relation_type": "limitation", "epistemic_status": "reported", "teaching_point": "适用范围限制保留为独立知识单元。"}
+      ]
+    },
+    {
+      "problem_id": "SYN-009",
+      "question": "拆分两种干预相对同一对照的结果。",
+      "source_passage": "在虚构系统 C 中，相较对照，干预 X 使结果 O 增加 2 个任意单位，干预 Y 使结果 O 减少 1 个任意单位。",
+      "expected_assertions": [
+        {"sample_id": "SYN-A017", "text": "在虚构系统 C 中，干预 X 相较对照使结果 O 增加 2 个任意单位。", "relation_type": "comparative_effect", "epistemic_status": "reported", "teaching_point": "干预 X 的主体与方向不可与 Y 混淆。"},
+        {"sample_id": "SYN-A018", "text": "在虚构系统 C 中，干预 Y 相较对照使结果 O 减少 1 个任意单位。", "relation_type": "comparative_effect", "epistemic_status": "reported", "teaching_point": "数值与单位跟随正确的干预。"}
+      ]
+    },
+    {
+      "problem_id": "SYN-010",
+      "question": "区分原文报告的组均值与根据输入计算的派生差值。",
+      "source_passage": "在虚构实验中，组 A 的指标 M 为 8 个任意单位，组 B 为 5 个任意单位；原文未报告组间差值。",
+      "expected_assertions": [
+        {"sample_id": "SYN-A019", "text": "原文报告的虚构组 A 指标 M 为 8 个任意单位。", "relation_type": "quantitative_measurement", "epistemic_status": "reported", "teaching_point": "单一组均值作为原文报告断言；派生计算另引组 B 的证据输入。"},
+        {"sample_id": "SYN-A020", "text": "依据所引两个虚构组均值计算，组 A 减组 B 的指标 M 差值为 3 个任意单位。", "relation_type": "comparative_effect", "epistemic_status": "derived", "teaching_point": "必须记录 operation='subtract'、两个证据输入和可复现代码 8 - 5，不称为原文报告值。"}
+      ]
+    }
+  ]
+}

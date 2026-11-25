@@ -42,7 +42,7 @@ class Audit:
 def load_index(path: Path) -> Tuple[Dict[str, Dict[str, Any]], Dict[Tuple[str, Any], Dict[str, Any]]]:
     sources: Dict[str, Dict[str, Any]] = {}
     records: Dict[Tuple[str, Any], Dict[str, Any]] = {}
-    for line_number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
+    for line_number, line in enumerate(path.read_text(encoding="utf-8-sig").splitlines(), start=1):
         if not line.strip():
             continue
         record = json.loads(line)
@@ -387,10 +387,10 @@ def main(argv: Optional[List[str]] = None) -> int:
     parser.add_argument("--jsonl", type=Path)
     args = parser.parse_args(argv)
 
-    result = json.loads(args.result.read_text(encoding="utf-8"))
+    result = json.loads(args.result.read_text(encoding="utf-8-sig"))
     if not isinstance(result, dict):
         raise ValueError("result root must be a JSON object")
-    case = json.loads(args.contract.read_text(encoding="utf-8")) if args.contract else None
+    case = json.loads(args.contract.read_text(encoding="utf-8-sig")) if args.contract else None
     index_sources, records = load_index(args.sources)
     audit = Audit()
 

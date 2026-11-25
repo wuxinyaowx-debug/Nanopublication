@@ -156,6 +156,15 @@ def main() -> int:
         require(bound["assertions"][1]["evidence"][0]["locator"]["match_type"] == "exact", "second quote exact match")
         require(all(item["id"].startswith("np_") for item in bound["assertions"]), "deterministic assertion IDs")
 
+        # UTF-8 BOM inputs (e.g. files written by Windows editors) must be accepted.
+        bom_draft_path = root / "result.draft.bom.json"
+        bom_draft_path.write_text("\ufeff" + json.dumps(draft), encoding="utf-8")
+        bom_return = bind_evidence.main([
+            "--result", str(bom_draft_path), "--sources", str(index_path),
+            "--output", str(root / "result.bom.bound.json"), "--report", str(root / "result.bom.report.json"),
+        ])
+        require(bom_return == 0, "BOM-prefixed draft should bind successfully")
+
         ambiguous_draft = copy.deepcopy(draft)
         ambiguous_draft["assertions"] = [ambiguous_draft["assertions"][0]]
         ambiguous_draft["assertions"][0]["evidence"][0].pop("page")
@@ -196,6 +205,14 @@ def main() -> int:
         ])
         require(audit_return == 0, "valid synthetic audit should not have errors")
         require(len(jsonl_path.read_text(encoding="utf-8").splitlines()) == 2, "JSONL assertion count")
+
+        bom_case_path = root / "case.bom.json"
+        bom_case_path.write_text("\ufeff" + json.dumps(case), encoding="utf-8")
+        bom_audit_return = audit_result.main([
+            "--result", str(bound_path), "--sources", str(index_path), "--contract", str(bom_case_path),
+            "--output", str(root / "bom.result.json"), "--report", str(root / "bom.report.json"),
+        ])
+        require(bom_audit_return == 0, "BOM-prefixed contract should audit successfully")
 
         tampered = copy.deepcopy(bound)
         tampered["assertions"][1]["evidence"][0]["quote"] = "Method B did not enable detection of the marker."

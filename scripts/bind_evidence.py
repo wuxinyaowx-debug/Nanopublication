@@ -312,10 +312,10 @@ def main(argv: Optional[List[str]] = None) -> int:
     parser.add_argument("--assertions-key", default="assertions", help="Top-level assertions field (default: assertions)")
     args = parser.parse_args(argv)
 
-    result = json.loads(args.result.read_text(encoding="utf-8"))
+    result = json.loads(args.result.read_text(encoding="utf-8-sig"))
     if not isinstance(result, dict):
         raise ValueError("result root must be a JSON object")
-    records = [json.loads(line) for line in args.sources.read_text(encoding="utf-8").splitlines() if line.strip()]
+    records = [json.loads(line) for line in args.sources.read_text(encoding="utf-8-sig").splitlines() if line.strip()]
     candidates = records_by_source(records)
     assertions = result.get(args.assertions_key, [])
     if not isinstance(assertions, list):
